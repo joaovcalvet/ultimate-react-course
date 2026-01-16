@@ -50,11 +50,11 @@ const pizzaData = [
 
 function App() {
   return (
-    <main className="container">
+    <div className="container">
       <Header />
       <Menu />
       <Footer />
-    </main>
+    </div>
   );
 }
 
@@ -70,9 +70,24 @@ function Header() {
 
 function Menu() {
   return (
-    <div className="menu">
+    <main className="menu">
       <h2>Our menu</h2>
-      <Pizza />
+      {pizzaData.length > 0 ? (
+        pizzaData.map((pizza) => <Pizza pizza={pizza} />)
+      ) : (
+        <h3>No pizza :(</h3>
+      )}
+    </main>
+  );
+}
+
+function Pizza({ pizza }) {
+  return (
+    <div className="pizza">
+      <img src={pizza.photoName} alt="pizza prosciutto" />
+      <h3>{pizza.name}</h3>
+      <p>{pizza.ingredients}</p>
+      <p>${pizza.price}</p>
     </div>
   );
 }
@@ -92,16 +107,6 @@ function Footer() {
   );
 
   // return React.createElement("footer", null, "We're currently open!");
-}
-
-function Pizza() {
-  return (
-    <div>
-      <img src="pizzas/prosciutto.jpg" alt="pizza prosciutto" />
-      <h3>Pizza Prosciutto</h3>
-      <p>Tomato, mozarella, ham, aragula, and burrata cheese</p>
-    </div>
-  );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
